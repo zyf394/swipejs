@@ -2,9 +2,9 @@
 一个翻页小插件。依赖zepto,使用前需确保已引入zepto。
 
 ## 创建可滑动的h5
-示例:
+使用步骤:
 
-html结构:
+#### 创建html结构:
 
     <div id="app">
         <section>
@@ -24,12 +24,12 @@ html结构:
         </section>
     </div>
     
-引入zepto和swipejs
+#### 引入zepto和swipejs
 
     <script src="zepto.min.js"></script>
     <script src="swipe.js"></script>
 
-创建swipe实例
+#### 创建swipe实例
 
     <script>
         new Swipe('#app');
