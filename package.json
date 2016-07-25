@@ -1,0 +1,25 @@
+{
+  "name": "swipejs",
+  "version": "1.0.0",
+  "description": "一个翻页小插件。依赖zepto,使用前需确保已引入zepto。",
+  "main": "swipe.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyf394/swipejs.git"
+  },
+  "author": "shuiyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zyf394/swipejs/issues"
+  },
+  "homepage": "https://github.com/zyf394/swipejs#readme",
+  "dependencies": {
+    "zepto": "^1.2.0"
+  }
+}
