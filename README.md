@@ -34,9 +34,7 @@
     <script>
         new Swipe('#app');
     </script>
-    </body>
 
-    new Swipe("#app");
 
 ## 可配置项
 
