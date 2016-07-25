@@ -7,8 +7,7 @@ var Swipe = function (selector, options) {
     this.defaultOptions = {
         duration: 200,
         easing: 'linear',
-        complete: function () {
-        }
+        delay: 0
     };
     this.options = options ? $.extend({}, this.defaultOptions, options) : this.defaultOptions;
 
@@ -23,6 +22,7 @@ var Swipe = function (selector, options) {
 Swipe.prototype.init = function () {
     var me = this;
     me.setSize();
+    me.setTransition();
     me.bindEvents();
 };
 // 绑定翻页事件
@@ -62,6 +62,19 @@ Swipe.prototype.setSize = function () {
     scrollBar.css({"width":"100%"});
     sections.css({"height": me.screenH,"width":"100%"});
 };
+Swipe.prototype.setTransition = function () {
+    var me = this,
+        opt = me.options,
+        scrollBar = me.$container,
+        duration = /^\d+$/.test(opt.duration) ? (opt.duration/1000 + 's') : opt.duration,
+        easing = opt.easing,
+        delay = /^\d+$/.test(opt.delay) ? (opt.delay/1000 + 's') : opt.delay;
+
+    scrollBar.css({
+        "-webkit-transition": "-webkit-transform " + duration + " "+ easing + " " + delay,
+        "transition": "transform " + duration + " "+ easing + " " + delay
+    })
+}
 // 判断手势滑动方向
 Swipe.prototype.swipeDirection = function(x1, x2, y1, y2){
     var xDelta = Math.abs(x1 - x2), yDelta = Math.abs(y1 - y2);
@@ -74,13 +87,13 @@ Swipe.prototype.goDown = function () {
         scrollBar = me.$container;
 
     if (me.page == allPages) {
-        scrollBar.animate({
+        scrollBar.css({
             "-webkit-transform": "translate3d(0," + (-me.screenH) * (allPages - 1) + "px,0)",
             "transform": "translate3d(0," + (-me.screenH) * (allPages - 1) + "px,0)"
         }, me.options);
 
     } else {
-        scrollBar.animate({
+        scrollBar.css({
             "-webkit-transform": "translate3d(0," + (-me.screenH) * me.page + "px,0)",
             "transform": "translate3d(0," + (-me.screenH) * me.page + "px,0)"
         }, me.options);
@@ -93,17 +106,22 @@ Swipe.prototype.goUp = function () {
         allPages = this.$sections.length,
         scrollBar = me.$container;
     if (me.page == 1) {
-        scrollBar.animate({
+        scrollBar.css({
             "-webkit-transform": "translate3d(0,0,0)",
             "transform": "translate3d(0,0,0)"
         }, me.options);
     } else {
         me.page--;
-        scrollBar.animate({
+        scrollBar.css({
             "-webkit-transform": "translate3d(0," + (-me.screenH * (me.page - 1)) + "px,0)",
             "transform": "translate3d(0," + (-me.screenH * (me.page - 1)) + "px,0)"
         }, me.options);
     }
 };
-
-module.exports = Swipe;
+if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+    define(function () {
+        return Swipe;
+    });
+} else if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Swipe;
+}

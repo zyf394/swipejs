@@ -11,8 +11,6 @@
     new Swipe("#app", {
                  duration: 200,
                  easing: 'linear',
-                 complete: function () {
-                             do something... 
-                           }
+                 delay: 1000
             });
             
